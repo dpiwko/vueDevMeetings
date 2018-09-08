@@ -18,8 +18,9 @@ const app = new Vue({
             {
                 id: 4,
                 value: 'task4'
-            },
-        ]
+            }
+        ],
+        'taskInput': ''
     },
     methods: {
         addTask() {
@@ -29,6 +30,9 @@ const app = new Vue({
                 id: id,
                 value: this.taskInput
             })
+        },
+        removeTask(index) {
+            this.tasks.splice(index, 1)
         }
     }
 })
