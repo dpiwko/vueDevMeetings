@@ -7,7 +7,7 @@
 
     <h2>Add new product</h2>
     <form @submit.prevent="newProduct">
-      <input v-validate="'required'" v-model="productName" name="productName" placeholder="Product name">
+      <input v-validate="'required'" v-model="newProduct.name" name="productName" placeholder="Product name">
       <span class="error">
         {{ errors.first('productName') }}
       </span>
@@ -23,7 +23,6 @@ export default {
   name: 'app',
   data() {
     return {
-      productName: '',
       products: [
         {
           id: 1,
@@ -41,7 +40,10 @@ export default {
           id: 4,
           name: 'product4'
         }
-      ]
+      ],
+      newProduct: {
+        name: ''
+      }
     }
   },
   methods: {
@@ -51,9 +53,9 @@ export default {
           const id = Math.floor(Math.random())
           this.products.push({
             id: id,
-            name: this.productName
+            ...this.newProduct
           })
-          this.productName = ''
+          this.newProduct.name = ''
           this.$validator.reset() 
         }
       });
