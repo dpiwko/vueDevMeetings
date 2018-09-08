@@ -9,8 +9,17 @@
     </head>
     <body>
 
-        <h1>Vue.js DevMeetings</h1>
-        <div id="app"></div>
+        <div id="app">
+            <h1>{{ headline }}</h1>
+
+            <div>
+                <ul>
+                    <li v-for="product in products" :key="product.id">
+                        {{ product.value }}
+                    </li>
+                </ul>
+            </div>
+        </div>
 
         <script src="vue.js"></script>
     </body>
