@@ -1,9 +1,10 @@
 <template>
   <div>
+    <input type="text" v-model="search" placeholder="Search product by name..." />
     <ul v-if="products">
-        <product-list-item :item="product" v-for="(product, index) in products" :key="index" @remove="removeProduct(...arguments)"></product-list-item>
+        <product-list-item :item="product" v-for="(product, index) in filteredList" :key="index" @remove="removeProduct(...arguments)"></product-list-item>
     </ul>
-    <span v-else>No products</span>
+    <div v-else>No products</div>
   </div>
 </template>
 
@@ -12,11 +13,23 @@ import ProductListItem from './ProductListItem.vue'
 
 export default {
   name: 'ProductList',
+  data() {
+    return {
+      search: ''
+    }
+  },
   props: {
     products: {
       type: Array,
       required: true
     },
+  },
+  computed: {
+    filteredList() {
+      return this.products.filter((product) => {
+        return product.name.toLowerCase().includes(this.search.toLowerCase())
+      })
+    }
   },
   methods: {
     removeProduct(id) {

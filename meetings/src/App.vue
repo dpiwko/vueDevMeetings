@@ -6,11 +6,11 @@
     <product-list :products="products" @remove="removeProduct(...arguments)"></product-list>
 
     <h2>Add new product</h2>
-    <form @submit.prevent="newProduct">
+    <form @submit.prevent="addNewProduct">
       <input v-validate="'required'" v-model="newProduct.name" name="productName" placeholder="Product name">
-      <span class="error">
+      <div class="error">
         {{ errors.first('productName') }}
-      </span>
+      </div>
       <button type="submit">Add new</button>
     </form>
   </div>
@@ -47,7 +47,7 @@ export default {
     }
   },
   methods: {
-    newProduct() {
+    addNewProduct() {
       this.$validator.validate().then(result => {
         if (result) {
           const id = Math.floor(Math.random())
