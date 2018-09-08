@@ -2,7 +2,7 @@ const app = new Vue({
     el: '#app',
     data: {
         'headline': 'Vue.js DevMeetings',
-        'products': [
+        'tasks': [
             {
                 id: 1,
                 value: 'task1'
@@ -20,5 +20,15 @@ const app = new Vue({
                 value: 'task4'
             },
         ]
+    },
+    methods: {
+        addTask() {
+            const id = Math.random()
+
+            this.tasks.push({
+                id: id,
+                value: `task ${id}`
+            })
+        }
     }
 })

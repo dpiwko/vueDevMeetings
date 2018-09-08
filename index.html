@@ -14,10 +14,11 @@
 
             <div>
                 <ul>
-                    <li v-for="product in products" :key="product.id">
-                        {{ product.value }}
+                    <li v-for="task in tasks" :key="task.id">
+                        {{ task.value }}
                     </li>
                 </ul>
+                <button @click="addTask">Add task</button>
             </div>
         </div>
 
