@@ -1,79 +1,75 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-      <h3>Tasks:</h3>
-      <ul>
-          <li v-for="(task, index) in tasks" :key="task.id">
-              {{ task.name }}
+    <h1>Vue.js DevMeetings</h1>
 
-              <button @click="removeTask(index)">x</button>
-          </li>
-      </ul>
+    <product-list :products="products" @remove="removeProduct(...arguments)"></product-list>
 
-      <h3>Add new task</h3>
-    <form @submit.prevent="addTask()">
-        <input placeholder="task"
-          name="task"
-          v-model="newTasks.name" 
-          v-validate="'required'">
-        <button type="submit">Add task</button>
-        <div v-show="errors.has('task')">
-          {{ errors.first('task') }}
-        </div>
+    <h2>Add new product</h2>
+    <form @submit.prevent="newProduct">
+      <input v-validate="'required'" v-model="productName" name="productName" placeholder="Product name">
+      <span class="error">
+        {{ errors.first('productName') }}
+      </span>
+      <button type="submit">Add new</button>
     </form>
   </div>
 </template>
 
 <script>
+import ProductList from './components/ProductList.vue'
+
 export default {
-  name: "app",
+  name: 'app',
   data() {
     return {
-      tasks: [
+      productName: '',
+      products: [
         {
           id: 1,
-          name: "task1"
+          name: 'product1'
         },
         {
           id: 2,
-          name: "task2"
+          name: 'product2'
         },
         {
           id: 3,
-          name: "task3"
+          name: 'product3'
         },
         {
           id: 4,
-          name: "task4"
+          name: 'product4'
         }
-      ],
-      newTasks: {
-        name: ""
-      }
-    };
+      ]
+    }
   },
   methods: {
-    addTask() {
-      this.$validator.validateAll().then(result => {
-        if (!result) {
-          return;
+    newProduct() {
+      this.$validator.validate().then(result => {
+        if (result) {
+          const id = Math.floor(Math.random())
+          this.products.push({
+            id: id,
+            name: this.productName
+          })
+          this.productName = ''
+          this.$validator.reset() 
         }
-
-        const id = Math.random();
-
-        this.tasks.push({
-          id: id,
-          ...this.newTasks
-        });
-        this.newTasks.name = "";
-        this.$validator.reset();
       });
     },
-    removeTask(index) {
-      this.tasks.splice(index, 1);
+    removeProduct(id) {
+      this.products.forEach((product, index) => {
+        if (product.id === id) {
+          this.products.splice(index, 1);
+        }
+      })
     }
+  },
+  components: {
+    ProductList
   }
-};
+}
 </script>
 
 <style>
@@ -87,5 +83,8 @@ export default {
 }
 li {
   list-style: none;
+}
+.error {
+  color: red;
 }
 </style>
