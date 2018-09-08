@@ -27,7 +27,7 @@ const app = new Vue({
 
             this.tasks.push({
                 id: id,
-                value: `task ${id}`
+                value: this.taskInput
             })
         }
     }
