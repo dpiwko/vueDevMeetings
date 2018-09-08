@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul v-if="products">
-        <product-list-item :offer="product" v-for="(product, index) in products" :key="index"  @remove="removeProduct(...arguments)"></product-list-item>
+        <product-list-item :item="product" v-for="(product, index) in products" :key="index" @remove="removeProduct(...arguments)"></product-list-item>
     </ul>
     <span v-else>No products</span>
   </div>

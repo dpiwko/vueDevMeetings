@@ -1,9 +1,9 @@
 <template>
   <li>
     <span>
-      {{ offer.name }}
+      {{ item.name }}
     </span>
-    <button @click="removeProduct(offer.id)">×</button>
+    <button @click="removeProduct(item.id)">×</button>
   </li>
 </template>
 
@@ -11,7 +11,8 @@
 export default {
   name: 'ProductListItem',
   props: {
-    offer: Object
+    item: Object,
+    required: true
   },
   methods: {
     removeProduct(id) {
