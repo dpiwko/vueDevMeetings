@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input type="text" v-model="search" placeholder="Search product by name..." />
+    <input type="text" v-if="products" v-model="search" placeholder="Search product by name..." />
     <button v-show="search.length" @click.prevent="clearSearch">x</button>
 
     <ul v-if="products">
@@ -29,7 +29,7 @@ export default {
   computed: {
     filteredList() {
       return this.products.filter((product) => {
-        return product.name.toLowerCase().includes(this.search.toLowerCase())
+        return product.Name.toLowerCase().includes(this.search.toLowerCase())
       })
     }
   },

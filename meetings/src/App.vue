@@ -7,7 +7,7 @@
 
     <h2>Add new product</h2>
     <form @submit.prevent="addNewProduct">
-      <input v-validate="'required'" v-model="newProduct.name" name="productName" placeholder="Product name">
+      <input v-validate="'required'" v-model="newProduct.Name" name="productName" placeholder="Product name">
       <div class="error">
         {{ errors.first('productName') }}
       </div>
@@ -17,36 +17,27 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import ProductList from './components/ProductList.vue'
 
 export default {
   name: 'app',
   data() {
     return {
-      products: [
-        {
-          id: 1,
-          name: 'product1'
-        },
-        {
-          id: 2,
-          name: 'product2'
-        },
-        {
-          id: 3,
-          name: 'product3'
-        },
-        {
-          id: 4,
-          name: 'product4'
-        }
-      ],
       newProduct: {
         name: ''
       }
     }
   },
+  computed: {
+    ...mapGetters({
+      products: 'productsStore/products'
+    })
+  },
   methods: {
+    ...mapActions({
+      getProducts: 'productsStore/getProducts'
+    }),
     addNewProduct() {
       this.$validator.validate().then(result => {
         if (result) {
@@ -55,7 +46,7 @@ export default {
             id: id,
             ...this.newProduct
           })
-          this.newProduct.name = ''
+          this.newProduct.Name = ''
           this.$validator.reset() 
         }
       });
@@ -67,6 +58,9 @@ export default {
         }
       })
     }
+  },
+  created() {
+    this.getProducts()
   },
   components: {
     ProductList

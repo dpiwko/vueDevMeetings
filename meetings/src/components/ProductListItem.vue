@@ -1,7 +1,7 @@
 <template>
   <li>
     <span>
-      {{ item.name }}
+      {{ item.Name }}
     </span>
     <button @click="removeProduct(item.id)">×</button>
   </li>
