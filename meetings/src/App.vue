@@ -7,7 +7,11 @@
         v-if="products" 
         v-model="search" 
         @keyup="searchProducts($event.target.value)"/>
-    <button v-show="search.length" @click.prevent="clearSearch">x</button>
+    <button type="reset" 
+        v-show="search.length" 
+        @click.prevent="clearSearch">
+        x
+      </button>
 
     <product-list :products="products"></product-list>
 
