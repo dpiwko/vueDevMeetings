@@ -3,7 +3,8 @@ import productsService from '../services/products'
 const namespaced = true
 
 const state = {
-    products: []
+    products: [],
+    page: 1
 }
 
 // getters
@@ -15,7 +16,7 @@ const getters = {
 const actions = {
     getProducts({ commit, state }) {
         return productsService
-            .getProducts()
+            .getProducts(null, state.page * 10)
             .then((data) => {
                 commit('setProducts', data)
 
@@ -43,6 +44,10 @@ const actions = {
                 state.products.splice(index, 1)
             }
         })
+    },
+    loadMore({ commit, state, dispatch }, page = null) {
+        commit('setNextPage', page || state.page + 1)
+        dispatch('getProducts')
     }
 }
 
@@ -50,6 +55,10 @@ const actions = {
 const mutations = {
     setProducts(state, products) {
         state.products = products
+    },
+
+    setNextPage(state, page) {
+      state.page = page
     }
 }
 

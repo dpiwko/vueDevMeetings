@@ -47,7 +47,8 @@ export default {
   methods: {
     ...mapActions({
       getProducts: 'productsStore/getProducts',
-      searchProducts: 'productsStore/searchProducts'
+      searchProducts: 'productsStore/searchProducts',
+      loadMore: 'productsStore/loadMore'
     }),
     addNewProduct() {
       this.$validator.validate().then(result => {
@@ -75,7 +76,7 @@ export default {
     }
   },
   created() {
-    this.getProducts()
+    this.getProducts(this.page)
   },
   components: {
     ProductList
