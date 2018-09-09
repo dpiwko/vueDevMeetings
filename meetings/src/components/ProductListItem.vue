@@ -3,11 +3,13 @@
     <span>
       {{ item.Name }}
     </span>
-    <button @click="removeProduct(item.id)">×</button>
+    <button @click="removeProduct(item.ProductId)">×</button>
   </li>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'ProductListItem',
   props: {
@@ -15,9 +17,9 @@ export default {
     required: true
   },
   methods: {
-    removeProduct(id) {
-      this.$emit('remove', id)
-    }
+    ...mapActions({
+      removeProduct: 'productsStore/removeProduct'
+    })
   }
 }
 </script>

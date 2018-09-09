@@ -13,7 +13,7 @@ const getters = {
 
 // actions
 const actions = {
-    getProducts({ commit }) {
+    getProducts({ commit, state }) {
         return productsService
             .getProducts()
             .then((data) => {
@@ -36,6 +36,13 @@ const actions = {
             .catch((err) => {
                 alert(err)
             })
+    },
+    removeProduct({ state }, id) {
+        state.products.forEach((product, index) => {
+            if (product.ProductId === id) {
+                state.products.splice(index, 1)
+            }
+        })
     }
 }
 

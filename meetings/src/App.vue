@@ -9,7 +9,9 @@
         @keyup="searchProducts($event.target.value)"/>
     <button v-show="search.length" @click.prevent="clearSearch">x</button>
 
-    <product-list :products="products" @remove="removeProduct(...arguments)"></product-list>
+    <product-list :products="products"></product-list>
+
+    <button type="button" @click="loadMore()">Load more</button>
 
     <h2>Add new product</h2>
     <form @submit.prevent="addNewProduct">
@@ -31,6 +33,7 @@ export default {
   data() {
     return {
       search: '',
+      page: 1,
       newProduct: {
         name: ''
       }

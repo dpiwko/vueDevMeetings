@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul v-if="products">
-        <product-list-item :item="product" v-for="(product, index) in products" :key="index" @remove="removeProduct(...arguments)"></product-list-item>
+        <product-list-item :item="product" v-for="(product, index) in products" :key="index"></product-list-item>
     </ul>
     <div v-else>No products</div>
   </div>
@@ -17,11 +17,6 @@ export default {
       type: Array,
       required: true
     },
-  },
-  methods: {
-    removeProduct(id) {
-      this.$emit('remove', id)
-    }
   },
   components: {
     ProductListItem
