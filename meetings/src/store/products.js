@@ -6,10 +6,12 @@ const state = {
     products: []
 }
 
+// getters
 const getters = {
     products: (state) => state.products
 }
 
+// actions
 const actions = {
     getProducts({ commit }) {
         return productsService
@@ -25,6 +27,7 @@ const actions = {
     }
 }
 
+// mutations
 const mutations = {
     setProducts(state, products) {
         state.products = products
