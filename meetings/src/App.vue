@@ -2,6 +2,12 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
     <h1>Vue.js DevMeetings</h1>
+    
+    <input type="text" placeholder="Search product by name..." 
+        v-if="products" 
+        v-model="search" 
+        @keyup="searchProducts($event.target.value)"/>
+    <button v-show="search.length" @click.prevent="clearSearch">x</button>
 
     <product-list :products="products" @remove="removeProduct(...arguments)"></product-list>
 
@@ -24,6 +30,7 @@ export default {
   name: 'app',
   data() {
     return {
+      search: '',
       newProduct: {
         name: ''
       }
@@ -36,7 +43,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      getProducts: 'productsStore/getProducts'
+      getProducts: 'productsStore/getProducts',
+      searchProducts: 'productsStore/searchProducts'
     }),
     addNewProduct() {
       this.$validator.validate().then(result => {
@@ -57,6 +65,10 @@ export default {
           this.products.splice(index, 1);
         }
       })
+    },
+    clearSearch() {
+      this.search = ''
+      this.getProducts()
     }
   },
   created() {

@@ -24,6 +24,18 @@ const actions = {
             .catch((err) => {
                 alert(err)
             })
+    },
+    searchProducts({ commit }, query) {
+        return productsService
+            .searchProducts(query)
+            .then((data) => {
+                commit('setProducts', data)
+
+                return data  
+            })
+            .catch((err) => {
+                alert(err)
+            })
     }
 }
 
